@@ -1,7 +1,8 @@
 require('dotenv').config();
 const tmi = require('tmi.js');
 
-const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)(?:\W+)?(.*)?/);
+const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)\s*(.*)?/);
+
 const nishFalas = JSON.parse(process.env.NISH_FALAS || "[]");
 
 // Armazena os usuários ativos e seus tempos de última mensagem
@@ -89,6 +90,7 @@ client.on('message', async (channel, context, message) => {
 
         if (responseMessage) {
             console.log(`Respondendo ao comando !${command}`);
+            console.log(responseMessage);
             client.say(channel, responseMessage);
         }
     }
