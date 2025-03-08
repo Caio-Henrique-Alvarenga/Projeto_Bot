@@ -190,14 +190,7 @@ const commands = {
     },
     qualquercoisa: {
         response: (command) => {
-            console.log(command);
-            if(command === undefined || command === 'qualquercoisa'){
-                return `Feesh, feesh, tem recomendação nova de alguma coisa feesh?? peepoHappy`;
-            } else if (command.length === 0) {
-                return `Feesh, feesh, tem recomendação nova de alguma coisa feesh?? peepoHappy`;
-            }else{
-                return `Feesh, feesh, qual ${command} você usa feesh?? Tem alguma recomendação? peepoHappy`;
-            }
+            return;
         },
         reply: false
     }
@@ -208,7 +201,7 @@ const cooldowns = {};
 
 const client = new tmi.Client({
     connection: { reconnect: true },
-    channels: ['Ars_Arcanum_','FISHNOTHING'],
+    channels: ['Ars_Arcanum_', 'fishnothing'],
     identity: {
         username: process.env.TWITCH_BOT_USERNAME,
         password: process.env.TWITCH_OAUTH_TOKEN
@@ -275,11 +268,6 @@ client.on('message', async (channel, context, message, self) => {
             }
         }
     } else {
-        console.log('aqui2')
-        let responseMessage = commands['qualquercoisa'].response;
-        if (typeof responseMessage === 'function') {
-            responseMessage = responseMessage(command.toLowerCase());
-        }
-        client.say(channel, responseMessage);
+        console.log('aqui2');
     }
 });
