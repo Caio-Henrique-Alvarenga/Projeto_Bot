@@ -189,9 +189,12 @@ const commands = {
     },
     qualquercoisa: {
         response: (command) => {
+            console.log(command);
             if(command === undefined || command === 'qualquercoisa'){
                 return `Feesh, feesh, tem recomendação nova de alguma coisa feesh?? peepoHappy`;
-            } else {
+            } else if (command.length === 0) {
+                return `Feesh, feesh, tem recomendação nova de alguma coisa feesh?? peepoHappy`;
+            }else{
                 return `Feesh, feesh, qual ${command} você usa feesh?? Tem alguma recomendação? peepoHappy`;
             }
         },
@@ -204,7 +207,7 @@ const cooldowns = {};
 
 const client = new tmi.Client({
     connection: { reconnect: true },
-    channels: ['Ars_Arcanum_','FISHNOTHING'],
+    channels: ['Ars_Arcanum_'],
     identity: {
         username: process.env.TWITCH_BOT_USERNAME,
         password: process.env.TWITCH_OAUTH_TOKEN
@@ -254,7 +257,8 @@ client.on('message', async (channel, context, message, self) => {
     }
  
     // Respondendo
-    if (commands[command.toLowerCase()] && command.toLowerCase() !== 'qualquercoisa') {
+    if (commands[command.toLowerCase()]) {
+        console.log('aquiu');
         let responseMessage = commands[command.toLowerCase()].response;
         if (typeof responseMessage === 'function') {
             responseMessage = responseMessage(argument, formatedUsername);
@@ -263,13 +267,14 @@ client.on('message', async (channel, context, message, self) => {
         if (responseMessage) {
             console.log(`Respondendo ao comando !${command.toLowerCase()}`);
             console.log(responseMessage);
-            if(commands[command.toLowerCase].reply) {
+            if(commands[command.toLowerCase()].reply) {
                 client.say(channel, responseMessage, { 'reply-parent-msg-id': context.id });
             }else{
                 client.say(channel, responseMessage);
             }
         }
     } else {
+        console.log('aqui2')
         let responseMessage = commands['qualquercoisa'].response;
         if (typeof responseMessage === 'function') {
             responseMessage = responseMessage(command.toLowerCase());
