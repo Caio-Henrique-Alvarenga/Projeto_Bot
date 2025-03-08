@@ -45,10 +45,10 @@ const commands = {
         }
     },
     Treta: {
-        response: '@FISHNOTHING Mano, eu lembro de você q vc se em alguma treta, qual foi mesmo? kkkkkkkkk Ha algums anos atras, lembro que veio muitas pessoas te xingar eu'
+        response: '@FISHNOTHING Mano, eu lembro de você q vc se em alguma treta, qual foi mesmo? kkkkkkkkk Ha algums anos atras, lembro que veio muitas pessoas te xingar eu acho'
     },
     treta: {
-        response: '@FISHNOTHING Mano, eu lembro de você q vc se em alguma treta, qual foi mesmo? kkkkkkkkk Ha algums anos atras, lembro que veio muitas pessoas te xingar eu'
+        response: '@FISHNOTHING Mano, eu lembro de você q vc se em alguma treta, qual foi mesmo? kkkkkkkkk Ha algums anos atras, lembro que veio muitas pessoas te xingar eu acho'
     },
     nish: {
         response: () => {
