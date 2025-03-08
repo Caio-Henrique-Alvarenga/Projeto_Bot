@@ -152,15 +152,19 @@ const commands = {
         reply: true
     },
     
-    parouimpar:{
-        response: (argument, formatedUsername) => {
-            const numero = Math.floor(Math.random() * 10);
-            let resultado = numero % 2 === 0 ? formatedUsername : argument;
-            if (argument === resultado) {
-                return `${argument} ganhou!`;
-            } else {
-                return `@${formatedUsername} ganhou!`;
+    decisao:{
+        response: (argument) => {
+            try{
+                opcoes = argument.split(" ou ");
+                if(opcoes.length < 2){
+                    return "Por favor, informe pelo menos duas opções separadas por 'ou'.";
+                }
+                const randomIndex = Math.floor(Math.random() * opcoes.length);
+                return `${opcoes[randomIndex]} ganhou!`;
+            } catch(e){
+                return "Erro ao processar a decisão. Exemplo de uso: !decisao opção1 ou opção2";
             }
+            
         },
         reply: true
     },
@@ -201,7 +205,7 @@ const cooldowns = {};
 
 const client = new tmi.Client({
     connection: { reconnect: true },
-    channels: ['Ars_Arcanum_', 'fishnothing'],
+    channels: ['Ars_Arcanum_'],
     identity: {
         username: process.env.TWITCH_BOT_USERNAME,
         password: process.env.TWITCH_OAUTH_TOKEN
