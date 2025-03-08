@@ -52,7 +52,7 @@ const cooldowns = {};
 
 const client = new tmi.Client({
     connection: { reconnect: true },
-    channels: [ 'Ars_Arcanum_' ],
+    channels: [ 'FISHNOTHING' ],
     identity: {
         username: process.env.TWITCH_BOT_USERNAME,
         password: process.env.TWITCH_OAUTH_TOKEN
