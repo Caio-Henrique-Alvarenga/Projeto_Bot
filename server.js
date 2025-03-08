@@ -103,6 +103,7 @@ const commandExceptions = [
     "bellwright",
     "botuptime",
     "browser",
+    "sqaud",
     "btag",
     "cadeira",
     "cafeteira",
