@@ -21,7 +21,7 @@
     "dotenv": "^16.4.7",
     "duckduckgo-search": "^1.0.7",
     "googlethis": "^1.8.0",
-    "tmi.js": "^1.8.5",
+    "tmi.js": "github:tmijs/tmi.js#feature-send-tags",
     "web": "^0.0.2"
   }
 }

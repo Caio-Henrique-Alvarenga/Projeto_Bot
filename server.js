@@ -18,62 +18,162 @@ function cleanInactiveUsers() {
     }
 }
 
+const commandExceptions = [
+    "lastseen",
+    "fight",
+    "giveaway",
+    "chatstats",
+    "leaderboard",
+    "commands",
+    "wrongsong",
+    "bet",
+    "tip",
+    "uptime",
+    "when",
+    "emotes",
+    "accountage",
+    "quote",
+    "enter",
+    "top",
+    "watchtime",
+    "items",
+    "contest",
+    "redeem",
+    "points",
+    "disablesfx",
+    "openstore",
+    "closestore",
+    "timer",
+    "docs",
+    "removesong",
+    "editcounter",
+    "command",
+    "ping",
+    "permit",
+    "skip",
+    "enablesfx",
+    "kappagen",
+    "hypecup",
+    "setgame",
+    "nukeuser",
+    "module",
+    "bot",
+    "level",
+    "nuke",
+    "setpoints",
+    "addpoints",
+    "filesay",
+    "settitle",
+    "7tv",
+    "ADTHON",
+    "ASA",
+    "BOSSRUSH",
+    "COD",
+    "DLSS",
+    "Mabi",
+    "Nitro",
+    "Nord",
+    "OV",
+    "OperaGX",
+    "PRIMEBARATO",
+    "RAJANG",
+    "SBR2",
+    "SBT",
+    "SOL",
+    "SUB",
+    "SUBtember",
+    "SUNBREAK",
+    "Stanley",
+    "Starfield",
+    "TANGIA",
+    "VPN",
+    "addcmd",
+    "ads",
+    "ajuda",
+    "alatreon",
+    "ali",
+    "amazon",
+    "amigato",
+    "apoio",
+    "arena",
+    "armas",
+    "armor",
+    "arte",
+    "aspirador",
+    "bellwright",
+    "botuptime",
+    "browser",
+    "btag",
+    "cadeira",
+    "cafeteira",
+    "camera",
+    "chinelo",
+    "codboys",
+    "commands", 
+    "config", 
+    "coreia",
+    "crash", "cyberfish", "database", "delcmd", "dente", "digitalvibrance", "dinheiro",
+    "discord", "dodge", "doom", "drop", "drops", "eddy", "edit",
+    "efeitos", "efeitosoff", "egirldetonandomonstrosaovivopoggers", "emotes", "emoticons", "engaja", "entenda",
+    "eventos", "expeditionagartha", "fc", "fight", "filmes", "fishverso",
+    "fone", "fortnite", "fov", "fruta", "game", "gamepass", "gear",
+    "geo", "gift", "giveprime", "gmg", "grupo", "guilda", "headset",
+    "hogwarts", "honkai", "horario", "hud", "hunterpie", "id", "iddesativado",
+    "impressora", "insta", "intro", "jc", "jogo", "jogogratis", "kabum",
+    "kokorocloverseason1", "latrel", "layeredweapon", "live", "lolja", "lucky", "maratona",
+    "mesa", "meta", "mhw", "mic", "mods", "moments", "mouse", "nintendo", "niver", "nome",
+    "nuke", "onlyfans", "outro", "pak", "pato", "pc", "perifericos", "permit", "pesquisa",
+    "piruka", "pix", "pixel", "plantas", "playlist", "plus", "portugues", "presente", "prime",
+    "rank", "re", "reembolso", "reframework", "reshade", "revanche", "riot", "rodar", "rpg",
+    "server", "setanavida", "setcmd", "setgame", "settitle", "site", "skin", "slowmotion",
+    "song", "songlist", "sorteio", "spam", "steam", "surpresa", "survivormercs", "t", "tag",
+    "taskbar", "tdah", "teclado", "teclado2", "temperatura", "test", "testando", "testh",
+    "traduzir", "tv", "twitch", "ui", "ultra", "uniforme", "ventilador", "video", "volante",
+    "wiki", "wild", "wirebug", "youtube", "yt", "zombiewithin"
+
+];
+
+
 // Agenda a limpeza automática a cada 5 minutos
 setInterval(cleanInactiveUsers, 5 * 60 * 1000);
 
 const commands = {
     alguem: {
-        response: (argument) => {
+        response: () => {
             const users = Array.from(activeUsers.keys());
             if (users.length === 0) {
                 return "Não há usuários suficientes para escolher.";
             }
 
             const randomUser = users[Math.floor(Math.random() * users.length)];
-            return `@${randomUser}`;
-        }
+            return `:point_right: @${randomUser}`;
+        },
+        reply: true
     },
-    Alguem: {
-        response: (argument) => {
-            const users = Array.from(activeUsers.keys());
-            if (users.length === 0) {
-                return "Não há usuários suficientes para escolher.";
+    
+    parouimpar:{
+        response: (argument, formatedUsername) => {
+            const numero = Math.floor(Math.random() * 10);
+            let resultado = numero % 2 === 0 ? formatedUsername : argument;
+            if (argument === resultado) {
+                return `${argument} ganhou!`;
+            } else {
+                return `@${formatedUsername} ganhou!`;
             }
-
-            const randomUser = users[Math.floor(Math.random() * users.length)];
-            return `@${randomUser}`;
-        }
-    },
-    Treta: {
-        response: '@FISHNOTHING Mano, eu lembro de você q vc se em alguma treta, qual foi mesmo? kkkkkkkkk Ha algums anos atras, lembro que veio muitas pessoas te xingar eu acho'
+        },
+        reply: true
     },
     treta: {
-        response: '@FISHNOTHING Mano, eu lembro de você q vc se em alguma treta, qual foi mesmo? kkkkkkkkk Ha algums anos atras, lembro que veio muitas pessoas te xingar eu acho'
+        response: '@FISHNOTHING Mano, eu lembro de você q vc se em alguma treta, qual foi mesmo? kkkkkkkkk Ha algums anos atras, lembro que veio muitas pessoas te xingar eu acho',
+        reply: false
     },
     nish: {
         response: () => {
             if (nishFalas.length === 0) return "Nenhuma fala cadastrada!";
             const randomIndex = Math.floor(Math.random() * nishFalas.length);
             return nishFalas[randomIndex];
-        }
-    },
-    Nish: {
-        response: () => {
-            if (nishFalas.length === 0) return "Nenhuma fala cadastrada!";
-            const randomIndex = Math.floor(Math.random() * nishFalas.length);
-            return nishFalas[randomIndex];
-        }
-    },
-    Quem: {
-        response: (argument) => {
-            const users = Array.from(activeUsers.keys());
-            if (users.length === 0) {
-                return "Não há usuários suficientes para escolher.";
-            }
-
-            const randomUser = users[Math.floor(Math.random() * users.length)];
-            return `@${randomUser} ${argument}`;
-        }
+        },
+        reply: false
     },
     quem: {
         response: (argument) => {
@@ -84,15 +184,27 @@ const commands = {
 
             const randomUser = users[Math.floor(Math.random() * users.length)];
             return `@${randomUser} ${argument}`;
-        }
+        },
+        reply: true
     },
+    qualquercoisa: {
+        response: (command) => {
+            if(command === undefined || command === 'qualquercoisa'){
+                return `Feesh, feesh, tem recomendação nova de alguma coisa feesh?? peepoHappy`;
+            } else {
+                return `Feesh, feesh, qual ${command} você usa feesh?? Tem alguma recomendação? peepoHappy`;
+            }
+        },
+        reply: false
+    }
 };
+
 
 const cooldowns = {};
 
 const client = new tmi.Client({
     connection: { reconnect: true },
-    channels: [ 'fishnothing','Ars_Arcanum_' ],
+    channels: ['Ars_Arcanum_','FISHNOTHING'],
     identity: {
         username: process.env.TWITCH_BOT_USERNAME,
         password: process.env.TWITCH_OAUTH_TOKEN
@@ -101,7 +213,9 @@ const client = new tmi.Client({
 
 client.connect();
 
-client.on('message', async (channel, context, message) => {
+client.on('message', async (channel, context, message, self) => {
+    if (self) return;
+    const formatedUsername = context.username;
     const username = context.username.toLowerCase();
 
     // Adiciona usuário à lista de ativos
@@ -111,27 +225,55 @@ client.on('message', async (channel, context, message) => {
     if (!match) return;
 
     const [raw, command, argument] = match;
+    console.log(match);
+
+    if (commandExceptions.includes(command)) {
+        console.log(`Comando !${command} comando de outro bot.`);
+        return;
+    }
+
 
     const now = Date.now();
     const cooldownTime = 30 * 1000;
 
-    if (cooldowns[command] && now - cooldowns[command] < cooldownTime) {
-        console.log(`Comando !${command} em cooldown.`);
+    if (!commands[command.toLowerCase()]) {
+        if (cooldowns['qualquercoisa'] && now - cooldowns['qualquercoisa'] < cooldownTime) {
+            console.log(`Comando !qualquercoisa em cooldown.`);
+            return;
+        }
+    } else if (cooldowns[command.toLowerCase()] && now - cooldowns[command.toLowerCase()] < cooldownTime) {
+        console.log(`Comando !${command.toLowerCase()} em cooldown.`);
         return;
     }
 
-    cooldowns[command] = now;
-
-    if (commands[command]) {
-        let responseMessage = commands[command].response;
+    if (commands[command.toLowerCase()]) {
+        cooldowns[command.toLowerCase()] = now
+        
+    } else {
+        cooldowns['qualquercoisa'] = now;
+    }
+ 
+    // Respondendo
+    if (commands[command.toLowerCase()] && command.toLowerCase() !== 'qualquercoisa') {
+        let responseMessage = commands[command.toLowerCase()].response;
         if (typeof responseMessage === 'function') {
-            responseMessage = responseMessage(argument);
+            responseMessage = responseMessage(argument, formatedUsername);
         }
-
+        // Decisão reply
         if (responseMessage) {
-            console.log(`Respondendo ao comando !${command}`);
+            console.log(`Respondendo ao comando !${command.toLowerCase()}`);
             console.log(responseMessage);
-            client.say(channel, responseMessage);
+            if(commands[command.toLowerCase].reply) {
+                client.say(channel, responseMessage, { 'reply-parent-msg-id': context.id });
+            }else{
+                client.say(channel, responseMessage);
+            }
         }
+    } else {
+        let responseMessage = commands['qualquercoisa'].response;
+        if (typeof responseMessage === 'function') {
+            responseMessage = responseMessage(command.toLowerCase());
+        }
+        client.say(channel, responseMessage);
     }
 });
