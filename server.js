@@ -22,11 +22,40 @@ function cleanInactiveUsers() {
 setInterval(cleanInactiveUsers, 5 * 60 * 1000);
 
 const commands = {
-    site: {
-        response: 'https://nothing.fish'
+    alguem: {
+        response: (argument) => {
+            const users = Array.from(activeUsers.keys());
+            if (users.length === 0) {
+                return "Não há usuários suficientes para escolher.";
+            }
+
+            const randomUser = users[Math.floor(Math.random() * users.length)];
+            return `@${randomUser}`;
+        }
     },
-    upvote: {
-        response: (user) => `Successfully upvoted ${user}`
+    Alguem: {
+        response: (argument) => {
+            const users = Array.from(activeUsers.keys());
+            if (users.length === 0) {
+                return "Não há usuários suficientes para escolher.";
+            }
+
+            const randomUser = users[Math.floor(Math.random() * users.length)];
+            return `@${randomUser}`;
+        }
+    },
+    Treta: {
+        response: '@FISHNOTHING Mano, eu lembro de você q vc se em alguma treta, qual foi mesmo? kkkkkkkkk Ha algums anos atras, lembro que veio muitas pessoas te xingar eu'
+    },
+    treta: {
+        response: '@FISHNOTHING Mano, eu lembro de você q vc se em alguma treta, qual foi mesmo? kkkkkkkkk Ha algums anos atras, lembro que veio muitas pessoas te xingar eu'
+    },
+    nish: {
+        response: () => {
+            if (nishFalas.length === 0) return "Nenhuma fala cadastrada!";
+            const randomIndex = Math.floor(Math.random() * nishFalas.length);
+            return nishFalas[randomIndex];
+        }
     },
     Nish: {
         response: () => {
@@ -45,7 +74,18 @@ const commands = {
             const randomUser = users[Math.floor(Math.random() * users.length)];
             return `@${randomUser} ${argument}`;
         }
-    }
+    },
+    quem: {
+        response: (argument) => {
+            const users = Array.from(activeUsers.keys());
+            if (users.length === 0) {
+                return "Não há usuários suficientes para escolher.";
+            }
+
+            const randomUser = users[Math.floor(Math.random() * users.length)];
+            return `@${randomUser} ${argument}`;
+        }
+    },
 };
 
 const cooldowns = {};
