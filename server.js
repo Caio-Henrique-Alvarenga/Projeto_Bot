@@ -134,6 +134,8 @@ const commandExceptions = [
 
 ];
 
+const cooldowns = {};
+
 
 // Agenda a limpeza automática a cada 5 minutos
 setInterval(cleanInactiveUsers, 5 * 60 * 1000);
@@ -157,6 +159,7 @@ const commands = {
             try{
                 opcoes = argument.split(" ou ");
                 if(opcoes.length < 2){
+                    cooldowns['decisao'] = 0;
                     return "Por favor, informe pelo menos duas opções separadas por 'ou'.";
                 }
                 const randomIndex = Math.floor(Math.random() * opcoes.length);
@@ -182,13 +185,21 @@ const commands = {
     },
     quem: {
         response: (argument) => {
-            const users = Array.from(activeUsers.keys());
-            if (users.length === 0) {
-                return "Não há usuários suficientes para escolher.";
+            try{
+                const users = Array.from(activeUsers.keys());
+                if (users.length === 0) {
+                    return "Não há usuários suficientes para escolher.";
+                }
+                if(argument.slice(-1) === "?"){
+                    argument = argument.slice(0, -1);
+                }
+                const randomUser = users[Math.floor(Math.random() * users.length)];
+                return `@${randomUser} ${argument}`;
+            }catch(e){
+                cooldowns['quem'] = 0;
+                return "Erro ao processar comando. Exemplo de uso: !quem vai dar 100 sub gifts hoje?";
             }
-
-            const randomUser = users[Math.floor(Math.random() * users.length)];
-            return `@${randomUser} ${argument}`;
+            
         },
         reply: true
     },
@@ -201,11 +212,11 @@ const commands = {
 };
 
 
-const cooldowns = {};
+
 
 const client = new tmi.Client({
     connection: { reconnect: true },
-    channels: ['Ars_Arcanum_','fishnothing'],
+    channels: ['FISHNOTHING'],
     identity: {
         username: process.env.TWITCH_BOT_USERNAME,
         password: process.env.TWITCH_OAUTH_TOKEN
