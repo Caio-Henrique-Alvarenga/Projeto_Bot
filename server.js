@@ -18,6 +18,53 @@ function cleanInactiveUsers() {
     }
 }
 
+const armas = [
+    "Long Sword",
+    "Sword & Shield",
+    "Dual Blades",
+    "Great Sword",
+    "Hammer",
+    "Hunting Horn",
+    "Lance",
+    "Gunlance",
+    "Switch Axe",
+    "Charge Blade",
+    "Insect Glaive",
+    "Bow",
+    "Heavy Bowgun",
+    "Light Bowgun"
+];
+
+const monstrosWilds =[
+    "Rathalos",
+    "Rathian",
+    "Doshaguma",
+    "Guardian Doshaguma",
+    "Balahara",
+    "Lala Barina",
+    "Congalala",
+    "Blangonga",
+    "Arkveld",
+    "Quematrice",
+    "Hirabami",
+    "Ajarakan",
+    "Guardian Ebony Odogaron",
+    "Rey Dau",
+    "Uth Duna",
+    "Nu Udra",
+    "Jin Dahaad",
+    "Rompompolo",
+    "Chatacabra",
+    "Gore Magala",
+    "Guardian Fulgur Anjanath",
+    "Nercyla",
+    "Yian-Kut-Ku",
+    "Gypceros",
+    "Gravios",
+    "Guardian Rathalos",
+    "Xu Wu"
+];
+
 const commandExceptions = [
     "lastseen",
     "fight",
@@ -141,6 +188,14 @@ const cooldowns = {};
 setInterval(cleanInactiveUsers, 5 * 60 * 1000);
 
 const commands = {
+    meubilly: {
+        response: () => {
+            const randomArma = armas[Math.floor(Math.random() * armas.length)];
+            const randomMonstro = monstrosWilds[Math.floor(Math.random() * monstrosWilds.length)];
+            return `Arma: ${randomArma} | Monstro: ${randomMonstro}`;
+        },
+        reply: true
+    },
     alguem: {
         response: () => {
             const users = Array.from(activeUsers.keys());
@@ -212,8 +267,6 @@ const commands = {
 };
 
 
-
-
 const client = new tmi.Client({
     connection: { reconnect: true },
     channels: ['FISHNOTHING'],
@@ -243,7 +296,6 @@ client.on('message', async (channel, context, message, self) => {
         console.log(`Comando !${command} comando de outro bot.`);
         return;
     }
-
 
     const now = Date.now();
     const cooldownTime = 30 * 1000;
