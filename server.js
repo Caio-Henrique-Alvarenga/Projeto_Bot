@@ -230,6 +230,10 @@ const commands = {
         response: '@FISHNOTHING Mano, eu lembro de você q vc se em alguma treta, qual foi mesmo? kkkkkkkkk Ha algums anos atras, lembro que veio muitas pessoas te xingar eu acho',
         reply: false
     },
+    sasa: {
+        response: 'FISHNOTHING: @sasa se ela falou é pq ela sabe oq ta falando, ela ESTUDOU pra isso e vc ai bebcada ta achando que é dona da verdade que isso que falta de respeito. No que devo acreditar? Numa pessoa bebada ou numa profissional formada?',
+        reply: false
+    },
     nish: {
         response: () => {
             if (nishFalas.length === 0) return "Nenhuma fala cadastrada!";
