@@ -4,6 +4,7 @@ const tmi = require('tmi.js');
 const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)\s*(.*)?/);
 
 const nishFalas = JSON.parse(process.env.NISH_FALAS || "[]");
+const montroze = process.env.MONTROZE;
 
 // Armazena os usuários ativos e seus tempos de última mensagem
 const activeUsers = new Map();
@@ -232,6 +233,11 @@ const commands = {
     },
     lixo: {
         response: 'JuliaNothing: @FISHNOTHING bora lixo',
+        reply: false
+    },
+
+    furico: {
+        response: montroze,
         reply: false
     },
     sasa: {
