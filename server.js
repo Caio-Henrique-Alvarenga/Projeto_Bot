@@ -6,6 +6,8 @@ const regexpCommand = new RegExp(/^!([a-zA-Z0-9]+)\s*(.*)?/);
 const nishFalas = JSON.parse(process.env.NISH_FALAS || "[]");
 const montroze = process.env.MONTROZE;
 
+const linkCinzas = "https://www.twitch.tv/fishnothing/clip/ColorfulGentlePhoneHotPokket-d6QLNKgjp0wZHUPu"
+
 // Armazena os usuários ativos e seus tempos de última mensagem
 const activeUsers = new Map();
 
@@ -240,6 +242,12 @@ const commands = {
         response: montroze,
         reply: false
     },
+
+cinzas: {
+        response: linkCinzas,
+        reply: false
+    },
+    
     sasa: {
         response: 'FISHNOTHING: @sasa se ela falou é pq ela sabe oq ta falando, ela ESTUDOU pra isso e vc ai bebcada ta achando que é dona da verdade que isso que falta de respeito. No que devo acreditar? Numa pessoa bebada ou numa profissional formada?',
         reply: false
